@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import booksService from "../../services/books.service";
 import logger from "../../loaders/logger";
-import { BadRequest, NotFound } from "http-errors";
-import { bookSchema, reviewSchema } from "../../helpers/validation_schema";
+import { NotFound } from "http-errors";
 export default {
   getBooks: async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -18,13 +17,6 @@ export default {
   createBook: async (req: Request, res: Response, next: NextFunction) => {
     try {
       logger.debug("Create book Api invoked");
-      const { error } = bookSchema.validate(req.body);
-      if (error) {
-        const errorsText = error.details.map((x) => x.message).join(", ");
-        logger.error(errorsText);
-        next(new BadRequest(`Validation error: ${errorsText}`));
-        return;
-      }
       await booksService.createBook(req.body);
       logger.debug("Successfully created the book");
       return res
@@ -53,13 +45,6 @@ export default {
   updateBook: async (req: Request, res: Response, next: NextFunction) => {
     try {
       logger.debug("Update book details Api invoked");
-      const { error } = bookSchema.validate(req.body);
-      if (error) {
-        const errorsText = error.details.map((x) => x.message).join(", ");
-        logger.error(errorsText);
-        next(new BadRequest(`Validation error: ${errorsText}`));
-        return;
-      }
       const book = await booksService.updateBook(req.params.book_id, req.body);
       if (!book) {
         throw new Error();
@@ -110,13 +95,6 @@ export default {
   createBookReview: async (req: Request, res: Response, next: NextFunction) => {
     try {
       logger.debug("Create book review Api invoked");
-      const { error } = reviewSchema.validate(req.body);
-      if (error) {
-        const errorsText = error.details.map((x) => x.message).join(", ");
-        logger.error(errorsText);
-        next(new BadRequest(`Validation error: ${errorsText}`));
-        return;
-      }
       const bookReview = await booksService.createBookReview(
         req.params.book_id,
         req.body
@@ -140,13 +118,6 @@ export default {
   updateBookReview: async (req: Request, res: Response, next: NextFunction) => {
     try {
       logger.debug("Update book review Api invoked");
-      const { error } = reviewSchema.validate(req.body);
-      if (error) {
-        const errorsText = error.details.map((x) => x.message).join(", ");
-        logger.error(errorsText);
-        next(new BadRequest(`Validation error: ${errorsText}`));
-        return;
-      }
       const bookReview = await booksService.updateBookReview(
         req.params.book_id,
         req.params.review_id,

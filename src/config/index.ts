@@ -21,4 +21,12 @@ export default {
   api: {
     prefix: "/api", // ROUTE LEVEL API
   },
+  oktaConfig: {
+    domain: process.env.OKTA_DOMAIN || "https://dev-93177823.okta.com",
+    issuer:
+      process.env.ISSUER || "https://dev-93177823.okta.com/oauth2/default",
+    apiToken:
+      process.env.OKTA_APP_TOKEN ||
+      "00O7mtxN0SE0mzFhVrlKxhhmoAss6PHXtcNlOmEYBm",
+  },
 };

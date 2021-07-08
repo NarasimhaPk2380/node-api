@@ -17,3 +17,15 @@ export const reviewSchema = joi.object({
   reviewer: joi.string().required(),
   message: joi.string().required(),
 });
+
+export const regiserUserSchema = joi.object({
+  email: joi.string().required().email(),
+  firstName: joi.string().required(),
+  lastName: joi.string().required(),
+  password: joi.string().required(),
+});
+
+export const loginUserSchema = joi.object({
+  email: joi.string().required().email(),
+  password: joi.string().required(),
+});

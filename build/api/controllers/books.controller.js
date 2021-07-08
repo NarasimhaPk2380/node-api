@@ -42,7 +42,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var books_service_1 = __importDefault(require("../../services/books.service"));
 var logger_1 = __importDefault(require("../../loaders/logger"));
 var http_errors_1 = require("http-errors");
-var validation_schema_1 = require("../../helpers/validation_schema");
 exports.default = {
     getBooks: function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
         var booksList, e_1;
@@ -66,19 +65,12 @@ exports.default = {
         });
     }); },
     createBook: function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-        var error, errorsText, e_2;
+        var e_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     logger_1.default.debug("Create book Api invoked");
-                    error = validation_schema_1.bookSchema.validate(req.body).error;
-                    if (error) {
-                        errorsText = error.details.map(function (x) { return x.message; }).join(", ");
-                        logger_1.default.error(errorsText);
-                        next(new http_errors_1.BadRequest("Validation error: " + errorsText));
-                        return [2 /*return*/];
-                    }
                     return [4 /*yield*/, books_service_1.default.createBook(req.body)];
                 case 1:
                     _a.sent();
@@ -121,19 +113,12 @@ exports.default = {
         });
     }); },
     updateBook: function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-        var error, errorsText, book, e_4;
+        var book, e_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     logger_1.default.debug("Update book details Api invoked");
-                    error = validation_schema_1.bookSchema.validate(req.body).error;
-                    if (error) {
-                        errorsText = error.details.map(function (x) { return x.message; }).join(", ");
-                        logger_1.default.error(errorsText);
-                        next(new http_errors_1.BadRequest("Validation error: " + errorsText));
-                        return [2 /*return*/];
-                    }
                     return [4 /*yield*/, books_service_1.default.updateBook(req.params.book_id, req.body)];
                 case 1:
                     book = _a.sent();
@@ -208,19 +193,12 @@ exports.default = {
         });
     }); },
     createBookReview: function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-        var error, errorsText, bookReview, e_7;
+        var bookReview, e_7;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     logger_1.default.debug("Create book review Api invoked");
-                    error = validation_schema_1.reviewSchema.validate(req.body).error;
-                    if (error) {
-                        errorsText = error.details.map(function (x) { return x.message; }).join(", ");
-                        logger_1.default.error(errorsText);
-                        next(new http_errors_1.BadRequest("Validation error: " + errorsText));
-                        return [2 /*return*/];
-                    }
                     return [4 /*yield*/, books_service_1.default.createBookReview(req.params.book_id, req.body)];
                 case 1:
                     bookReview = _a.sent();
@@ -245,19 +223,12 @@ exports.default = {
         });
     }); },
     updateBookReview: function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-        var error, errorsText, bookReview, e_8;
+        var bookReview, e_8;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     logger_1.default.debug("Update book review Api invoked");
-                    error = validation_schema_1.reviewSchema.validate(req.body).error;
-                    if (error) {
-                        errorsText = error.details.map(function (x) { return x.message; }).join(", ");
-                        logger_1.default.error(errorsText);
-                        next(new http_errors_1.BadRequest("Validation error: " + errorsText));
-                        return [2 /*return*/];
-                    }
                     return [4 /*yield*/, books_service_1.default.updateBookReview(req.params.book_id, req.params.review_id, req.body)];
                 case 1:
                     bookReview = _a.sent();
